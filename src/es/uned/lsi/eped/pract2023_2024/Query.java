@@ -2,52 +2,66 @@ package es.uned.lsi.eped.pract2023_2024;
 
 public class Query implements QueryIF {
 
+	String title;
+	String author;
+	String genre;
+	String album;
+	int min_year;
+	int max_year;
+	int min_duration;
+	int max_duration;
+
+	public Query(String title, String author, String genre, String album, int min_year, int max_year, int min_duration,
+			int max_duration) {
+		super();
+		this.title = title;
+		this.author = author;
+		this.genre = genre;
+		this.album = album;
+		this.min_year = min_year;
+		this.max_year = max_year;
+		this.min_duration = min_duration;
+		this.max_duration = max_duration;
+	}
+
 	@Override
 	public String getTitle() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.title;
 	}
 
 	@Override
 	public String getAuthor() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.author;
 	}
 
 	@Override
 	public String getGenre() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.genre;
 	}
 
 	@Override
 	public String getAlbum() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.album;
 	}
 
 	@Override
 	public int getMin_year() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.min_year;
 	}
 
 	@Override
 	public int getMax_year() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.max_year;
 	}
 
 	@Override
 	public int getMin_duration() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.min_duration;
 	}
 
 	@Override
 	public int getMax_duration() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.max_duration;
 	}
 
 }
