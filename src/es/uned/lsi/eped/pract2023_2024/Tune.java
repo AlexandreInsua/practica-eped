@@ -2,6 +2,7 @@ package es.uned.lsi.eped.pract2023_2024;
 
 public class Tune implements TuneIF {
 
+	private int id;
 	private String title;
 	private String author;
 	private String genre;
@@ -25,6 +26,9 @@ public class Tune implements TuneIF {
 		this.duration = duration;
 	}
 
+	public int getId() {
+		return this.id;
+	}
 	@Override
 	public boolean match(QueryIF q) {
 		return matchTitle(q) && matchAuthor(q) && matchGenre(q) && matchAlbum(q)
