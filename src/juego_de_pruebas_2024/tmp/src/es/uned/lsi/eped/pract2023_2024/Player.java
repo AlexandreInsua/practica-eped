@@ -30,7 +30,7 @@ public class Player implements PlayerIF {
 
 		IteratorIF<PlayList> it = this.playLists.iterator();
 		while (it.hasNext()) {
-//			ids.insert(ids.size() + 1, it.getNext().getId());
+			ids.insert(ids.size() + 1, it.getNext().getId());
 		}
 		return ids;
 	}
@@ -41,9 +41,9 @@ public class Player implements PlayerIF {
 
 		while (it.hasNext()) {
 			PlayList playList = it.getNext();
-//			if (playList.getId() == playListID) {
-//				return playList.getPlayList();
-//			}
+			if (playList.getId() == playListID) {
+				return playList.getPlayList();
+			}
 		}
 		return new List<Integer>();
 	}

@@ -7,7 +7,7 @@ import es.uned.lsi.eped.DataStructures.Queue;
 import es.uned.lsi.eped.DataStructures.Stack;
 
 public class RecentlyPlayed implements RecentlyPlayedIF {
-
+	
 	int max;
 	Queue<Integer> ids;
 
@@ -20,18 +20,18 @@ public class RecentlyPlayed implements RecentlyPlayedIF {
 	public ListIF<Integer> getContent() {
 		List<Integer> ids = new List<>();
 		IteratorIF<Integer> it = this.ids.iterator();
-
+		
 		while (it.hasNext()) {
-			ids.insert(ids.size() + 1, it.getNext());
+			ids.insert(ids.size()+1, it.getNext());
 		}
-		return ids;
+			return ids;
 	}
 
 	@Override
 	public void addTune(int tuneID) {
-		this.ids.enqueue(tuneID);
-		if (this.ids.size() >= this.max) {
+		this.ids.enqueue(tuneID);			
+		if (this.ids.size()>= this.max) {
 			this.ids.dequeue();
-		}
+		} 
 	}
 }

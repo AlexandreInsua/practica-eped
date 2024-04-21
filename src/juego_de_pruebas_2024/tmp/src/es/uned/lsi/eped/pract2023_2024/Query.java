@@ -13,7 +13,6 @@ public class Query implements QueryIF {
 
 	public Query(String title, String author, String genre, String album, int min_year,
 			int max_year, int min_duration, int max_duration) {
-		super();
 		this.title = title;
 		this.author = author;
 		this.genre = genre;
@@ -26,42 +25,42 @@ public class Query implements QueryIF {
 
 	@Override
 	public String getTitle() {
-		return this.title;
+		return title;
 	}
 
 	@Override
 	public String getAuthor() {
-		return this.author;
+		return author;
 	}
 
 	@Override
 	public String getGenre() {
-		return this.genre;
+		return genre;
 	}
 
 	@Override
 	public String getAlbum() {
-		return this.album;
+		return album;
 	}
 
 	@Override
 	public int getMin_year() {
-		return this.min_year;
+		return min_year;
 	}
 
 	@Override
 	public int getMax_year() {
-		return this.max_year;
+		return max_year;
 	}
 
 	@Override
 	public int getMin_duration() {
-		return this.min_duration;
+		return min_duration;
 	}
 
 	@Override
 	public int getMax_duration() {
-		return this.max_duration;
+		return max_duration;
 	}
 
 }

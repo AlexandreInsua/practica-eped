@@ -1,8 +1,6 @@
 package es.uned.lsi.eped.pract2023_2024;
 
 public class Tune implements TuneIF {
-
-	private int id;
 	private String title;
 	private String author;
 	private String genre;
@@ -11,10 +9,9 @@ public class Tune implements TuneIF {
 	private int duration;
 
 	public Tune(String title, String author, String genre, String album, int year,
-			int duration) {
-		super();
+			int duration) throws IllegalArgumentException {
 
-		if (title.equals("") || author.equals("") || genre.equals("") || album.equals("")
+		if (title.equalsIgnoreCase("") || author.equalsIgnoreCase("") || genre.equalsIgnoreCase("") || album.equalsIgnoreCase("")
 				|| year <= 0 || duration <= 0)
 			throw new IllegalArgumentException();
 
@@ -26,9 +23,9 @@ public class Tune implements TuneIF {
 		this.duration = duration;
 	}
 
-	public int getId() {
-		return this.id;
-	}
+//	public int getId() {
+//		return this.id;
+//	}
 	@Override
 	public boolean match(QueryIF q) {
 		return matchTitle(q) && matchAuthor(q) && matchGenre(q) && matchAlbum(q)
@@ -36,31 +33,31 @@ public class Tune implements TuneIF {
 	}
 
 	private boolean matchTitle(QueryIF q) {
-		return q.getTitle().equals("") || q.getTitle().equals(this.title);
+		return q.getTitle().isEmpty() || q.getTitle().equalsIgnoreCase(title);
 	}
 
 	private boolean matchAuthor(QueryIF q) {
-		return q.getAuthor().equals("") || q.getAuthor().equals(this.author);
+		return q.getAuthor().isEmpty()|| q.getAuthor().equalsIgnoreCase(author);
 	}
 
 	private boolean matchGenre(QueryIF q) {
-		return q.getGenre().equals("") || q.getGenre().equals(this.genre);
+		return q.getGenre().isEmpty() || q.getGenre().equalsIgnoreCase(genre);
 	}
 
 	private boolean matchAlbum(QueryIF q) {
-		return q.getAlbum().equals("") || q.getAlbum().equals(this.album);
+		return q.getAlbum().isEmpty() || q.getAlbum().equalsIgnoreCase(album);
 	}
 
 	private boolean matchYear(QueryIF q) {
 		return q.getMin_year() == -1
-				|| q.getMin_year() <= this.year && q.getMax_year() == -1
-				|| q.getMax_year() >= this.year;
+				|| q.getMin_year() <= year && q.getMax_year() == -1
+				|| q.getMax_year() >= year;
 	}
 
 	private boolean matchDuration(QueryIF q) {
 		return q.getMin_duration() == -1
-				|| q.getMin_duration() <= this.duration && q.getMax_duration() == -1
-				|| q.getMax_duration() >= this.duration;
+				|| q.getMin_duration() <= duration && q.getMax_duration() == -1
+				|| q.getMax_duration() >= duration;
 	}
 
 }

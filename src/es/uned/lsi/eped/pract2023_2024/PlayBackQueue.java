@@ -19,9 +19,8 @@ public class PlayBackQueue implements PlayBackQueueIF {
 		IteratorIF<Tune> it = this.tunes.iterator();
 		List<Integer> ids = new List<>();
 		
-		while (it.hasNext()) {
-		ids.insert(ids.size() + 1, it.getNext().getId());	
-		}
+		// TODO complete
+		
 		return ids;
 	}
 
