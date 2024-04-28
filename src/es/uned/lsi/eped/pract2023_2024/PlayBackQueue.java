@@ -3,55 +3,48 @@ package es.uned.lsi.eped.pract2023_2024;
 import es.uned.lsi.eped.DataStructures.IteratorIF;
 import es.uned.lsi.eped.DataStructures.List;
 import es.uned.lsi.eped.DataStructures.ListIF;
+import es.uned.lsi.eped.DataStructures.Queue;
 
 public class PlayBackQueue implements PlayBackQueueIF {
 
-	private List<Tune> tunes;
-	
-	
-	PlayBackQueue (){
-		this.tunes = new List<>();
-	}
-	
-	
+	private Queue<Integer> tuneIds;
+
 	@Override
 	public ListIF<Integer> getContent() {
-		IteratorIF<Tune> it = this.tunes.iterator();
-		List<Integer> ids = new List<>();
-		
-		// TODO complete
-		
+		ListIF<Integer> ids = new List<>();
+		IteratorIF<Integer> it = tuneIds.iterator();
+		while (it.hasNext()) {
+			ids.insert(ids.size() +1 , it.getNext());
+		}
 		return ids;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.tuneIds.isEmpty();
 	}
 
 	@Override
 	public int getFirstTune() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.tuneIds.getFirst();
 	}
 
 	@Override
 	public void extractFirstTune() {
-		// TODO Auto-generated method stub
-
+		this.tuneIds.dequeue();
 	}
 
 	@Override
 	public void addTunes(ListIF<Integer> lT) {
-		// TODO Auto-generated method stub
+		IteratorIF<Integer> it = lT.iterator();
+		while(it.hasNext()) {
+			this.tuneIds.enqueue(it.getNext());
+		}
 
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-
+		this.tuneIds.clear();
 	}
-
 }
