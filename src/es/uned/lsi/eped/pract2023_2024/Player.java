@@ -5,47 +5,32 @@ import java.util.Iterator;
 import es.uned.lsi.eped.DataStructures.IteratorIF;
 import es.uned.lsi.eped.DataStructures.List;
 import es.uned.lsi.eped.DataStructures.ListIF;
+import es.uned.lsi.eped.DataStructures.Queue;
 
 public class Player implements PlayerIF {
 
 	private int maxmaxRecentlyPlayed;
 	private TuneCollection repository;
-	private List<PlayList> playLists;
+	private PlayListManager playListManager;
 	private PlayBackQueue playBackQueue;
 	private RecentlyPlayed recentlyPlayed;
 
 	public Player(TuneCollection tCollection, int maxRecentlyPlayed) {
 		this.repository = tCollection;
 		this.maxmaxRecentlyPlayed = maxRecentlyPlayed;
-		this.playLists = new List<PlayList>();
+		this.playListManager = new PlayListManager();
 		this.playBackQueue = new PlayBackQueue();
 		this.recentlyPlayed = new RecentlyPlayed(maxRecentlyPlayed);
 	}
 
 	@Override
-	public List<String> getPlayListIDs() {
-		if (this.playLists.size() == 0)
-			return null;
-		List<String> ids = new List<String>();
-
-		IteratorIF<PlayList> it = this.playLists.iterator();
-		while (it.hasNext()) {
-//			ids.insert(ids.size() + 1, it.getNext().getId());
-		}
-		return ids;
+	public ListIF<String> getPlayListIDs() {
+		return playListManager.getIDs();
 	}
 
 	@Override
 	public ListIF<Integer> getPlayListContent(String playListID) {
-		IteratorIF<PlayList> it = this.playLists.iterator();
-
-		while (it.hasNext()) {
-			PlayList playList = it.getNext();
-//			if (playList.getId() == playListID) {
-//				return playList.getPlayList();
-//			}
-		}
-		return new List<Integer>();
+		return playListManager.getPlayList(playListID).getPlayList();
 	}
 
 	@Override
@@ -61,62 +46,81 @@ public class Player implements PlayerIF {
 
 	@Override
 	public void createPlayList(String playListID) {
-		this.playLists.insert(this.playLists.size() + 1, new PlayList(playListID));
+		this.playListManager.createPlayList(playListID);
 	}
 
 	@Override
 	public void removePlayList(String playListID) {
-		// TODO Auto-generated method stub
+		this.playListManager.removePlayList(playListID);
 
 	}
 
 	@Override
 	public void addListOfTunesToPlayList(String playListID, ListIF<Integer> lT) {
-		// TODO Auto-generated method stub
+		this.playListManager.getPlayList(playListID).addListOfTunes(lT);
 
 	}
 
 	@Override
-	public void addSearchToPlayList(String playListID, String t, String a, String g,
-			String al, int min_y, int max_y, int min_d, int max_d) {
-		// TODO Auto-generated method stub
+	public void addSearchToPlayList(String playListID, String title, String author,
+			String genre, String album, int min_year, int max_year, int min_duration,
+			int max_duration) {
+		// TODO question is the index of a tune its id?
+		ListIF<Integer> ids = new List<Integer>();
+		QueryIF query = new Query(title, author, genre, album, min_year, max_year,
+				min_duration, max_duration);
 
+		for (int i = 0; i < repository.size(); i++) {
+			Tune tune = repository.getTune(i);
+			if (tune.match(query)) {
+				ids.insert(ids.size() + 1, i);
+			}
+		}
+		playListManager.getPlayList(playListID).addListOfTunes(ids);
 	}
 
 	@Override
 	public void removeTuneFromPlayList(String playListID, int tuneID) {
-		// TODO Auto-generated method stub
-
+		playListManager.getPlayList(playListID).removeTune(tuneID);
 	}
 
 	@Override
 	public void addListOfTunesToPlayBackQueue(ListIF<Integer> lT) {
-		// TODO Auto-generated method stub
-
+		playBackQueue.addTunes(lT);
 	}
 
 	@Override
-	public void addSearchToPlayBackQueue(String t, String a, String g, String al,
-			int min_y, int max_y, int min_d, int max_d) {
-		// TODO Auto-generated method stub
+	public void addSearchToPlayBackQueue(String title, String author, String genre,
+			String album, int min_year, int max_year, int min_duration,
+			int max_duration) {
+		ListIF<Integer> ids = new List<Integer>();
+		QueryIF query = new Query(title, author, genre, album, min_year, max_year,
+				min_duration, max_duration);
 
+		for (int i = 0; i < repository.size(); i++) {
+			Tune tune = repository.getTune(i);
+			if (tune.match(query)) {
+				ids.insert(ids.size() + 1, i);
+			}
+		}
+		playBackQueue.addTunes(ids);
 	}
 
 	@Override
 	public void addPlayListToPlayBackQueue(String playListID) {
-		// TODO Auto-generated method stub
-
+		playBackQueue.addTunes(playListManager.getPlayList(playListID).getPlayList());
 	}
 
 	@Override
 	public void clearPlayBackQueue() {
-		// TODO Auto-generated method stub
+		playBackQueue.clear();
 
 	}
 
 	@Override
 	public void play() {
-		// TODO Auto-generated method stub
+	recentlyPlayed.addTune(playBackQueue.getFirstTune());
+	playBackQueue.extractFirstTune();
 
 	}
 

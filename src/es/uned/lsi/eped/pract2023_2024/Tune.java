@@ -11,7 +11,7 @@ public class Tune implements TuneIF {
 	public Tune(String title, String author, String genre, String album, int year,
 			int duration) throws IllegalArgumentException {
 
-		if (title.equalsIgnoreCase("") || author.equalsIgnoreCase("") || genre.equalsIgnoreCase("") || album.equalsIgnoreCase("")
+		if (title.isEmpty() || author.isEmpty() || genre.isEmpty() || album.isEmpty()
 				|| year <= 0 || duration <= 0)
 			throw new IllegalArgumentException();
 
@@ -23,9 +23,6 @@ public class Tune implements TuneIF {
 		this.duration = duration;
 	}
 
-//	public int getId() {
-//		return this.id;
-//	}
 	@Override
 	public boolean match(QueryIF q) {
 		return matchTitle(q) && matchAuthor(q) && matchGenre(q) && matchAlbum(q)
