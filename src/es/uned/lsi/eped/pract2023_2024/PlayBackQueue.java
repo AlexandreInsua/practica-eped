@@ -9,12 +9,17 @@ public class PlayBackQueue implements PlayBackQueueIF {
 
 	private Queue<Integer> tuneIds;
 
+	PlayBackQueue() {
+		super();
+		tuneIds = new Queue<>();
+	}
+
 	@Override
 	public ListIF<Integer> getContent() {
 		ListIF<Integer> ids = new List<>();
 		IteratorIF<Integer> it = tuneIds.iterator();
 		while (it.hasNext()) {
-			ids.insert(ids.size() +1 , it.getNext());
+			ids.insert(ids.size() + 1, it.getNext());
 		}
 		return ids;
 	}
@@ -37,7 +42,7 @@ public class PlayBackQueue implements PlayBackQueueIF {
 	@Override
 	public void addTunes(ListIF<Integer> lT) {
 		IteratorIF<Integer> it = lT.iterator();
-		while(it.hasNext()) {
+		while (it.hasNext()) {
 			this.tuneIds.enqueue(it.getNext());
 		}
 

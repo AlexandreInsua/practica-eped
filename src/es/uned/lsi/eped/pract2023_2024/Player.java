@@ -1,11 +1,7 @@
 package es.uned.lsi.eped.pract2023_2024;
 
-import java.util.Iterator;
-
-import es.uned.lsi.eped.DataStructures.IteratorIF;
 import es.uned.lsi.eped.DataStructures.List;
 import es.uned.lsi.eped.DataStructures.ListIF;
-import es.uned.lsi.eped.DataStructures.Queue;
 
 public class Player implements PlayerIF {
 
@@ -119,9 +115,10 @@ public class Player implements PlayerIF {
 
 	@Override
 	public void play() {
-	recentlyPlayed.addTune(playBackQueue.getFirstTune());
-	playBackQueue.extractFirstTune();
-
+		if(!playBackQueue.isEmpty()) {	
+			recentlyPlayed.addTune(playBackQueue.getFirstTune());
+			playBackQueue.extractFirstTune();
+		}
 	}
 
 }

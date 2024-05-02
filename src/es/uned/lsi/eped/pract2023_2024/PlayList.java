@@ -6,7 +6,11 @@ import es.uned.lsi.eped.DataStructures.ListIF;
 
 public class PlayList implements PlayListIF {
 
-	private List<Integer> tuneIds;
+	private ListIF<Integer> tuneIds;
+
+	public PlayList() {
+		tuneIds = new List<>();
+	}
 
 	@Override
 	public ListIF<Integer> getPlayList() {
@@ -27,7 +31,7 @@ public class PlayList implements PlayListIF {
 		int index = 0;
 		while (it.hasNext()) {
 			Integer currentTuneId = it.getNext();
-			if ( currentTuneId == tuneID) {
+			if (currentTuneId == tuneID) {
 				this.tuneIds.remove(index);
 			}
 			index++;

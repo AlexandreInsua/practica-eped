@@ -25,13 +25,15 @@ public class PlayListManager implements PlayListManagerIF {
 
 	@Override
 	public PlayListIF getPlayList(String playListID) {
+		PlayList playList = null;
 		IteratorIF<PlayListId> it = playListids.iterator();
 		while( it.hasNext()) {
-			if ( playListID == it.getNext().getId()) {
-				return it.getNext().getPlayList();
+			PlayListId p = it.getNext();
+			if ( playListID.equals(p.getId())) {
+				playList = p.getPlayList();
 			}
 		}
-		return null;
+		return playList;
 	}
 
 	@Override
