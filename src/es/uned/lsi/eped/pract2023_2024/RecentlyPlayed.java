@@ -22,7 +22,7 @@ public class RecentlyPlayed implements RecentlyPlayedIF {
 		IteratorIF<Integer> it = this.ids.iterator();
 
 		while (it.hasNext()) {
-			ids.insert(ids.size() + 1, it.getNext());
+			ids.insert(1, it.getNext());
 		}
 		return ids;
 	}

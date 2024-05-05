@@ -46,15 +46,21 @@ public class Tune implements TuneIF {
 	}
 
 	private boolean matchYear(QueryIF q) {
-		return q.getMin_year() == -1
-				|| q.getMin_year() <= year && q.getMax_year() == -1
-				|| q.getMax_year() >= year;
+		int year_min = q.getMin_year();
+		int year_max = q.getMax_year();
+		if (year_min == -1 ) year_min = Integer.MIN_VALUE;
+		if (year_max == -1 ) year_max = Integer.MAX_VALUE;
+		
+		return (year >= year_min && year <= year_max);
 	}
 
 	private boolean matchDuration(QueryIF q) {
-		return q.getMin_duration() == -1
-				|| q.getMin_duration() <= duration && q.getMax_duration() == -1
-				|| q.getMax_duration() >= duration;
+		int min_duration = q.getMin_duration();
+		int max_duration = q.getMax_duration();
+		if (min_duration == -1 ) min_duration = Integer.MIN_VALUE;
+		if (max_duration == -1 ) max_duration = Integer.MAX_VALUE;
+		
+		return (duration >= min_duration && duration <= max_duration); 
 	}
 
 }

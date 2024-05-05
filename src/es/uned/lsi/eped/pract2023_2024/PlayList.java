@@ -28,13 +28,17 @@ public class PlayList implements PlayListIF {
 	@Override
 	public void removeTune(int tuneID) {
 		IteratorIF<Integer> it = tuneIds.iterator();
-		int index = 0;
+
+		int index = 1;
+		
 		while (it.hasNext()) {
 			Integer currentTuneId = it.getNext();
-			if (currentTuneId == tuneID) {
-				this.tuneIds.remove(index);
+			if (currentTuneId.equals(tuneID)) {
+				tuneIds.remove(index);
+			}else {				
+				index++;
 			}
-			index++;
 		}
 	}
+
 }

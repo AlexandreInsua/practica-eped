@@ -21,12 +21,20 @@ public class Player implements PlayerIF {
 
 	@Override
 	public ListIF<String> getPlayListIDs() {
-		return playListManager.getIDs();
+		ListIF<String> playListIds = playListManager.getIDs();
+		if (playListIds == null) {
+			playListIds = new List<String>();
+		}
+		return playListIds;
 	}
 
 	@Override
 	public ListIF<Integer> getPlayListContent(String playListID) {
-		return playListManager.getPlayList(playListID).getPlayList();
+		PlayListIF playlist = playListManager.getPlayList(playListID);
+		if (playlist == null) {
+			return new List<Integer>();
+		}
+		return playlist.getPlayList();
 	}
 
 	@Override
@@ -61,7 +69,6 @@ public class Player implements PlayerIF {
 	public void addSearchToPlayList(String playListID, String title, String author,
 			String genre, String album, int min_year, int max_year, int min_duration,
 			int max_duration) {
-		// TODO question is the index of a tune its id?
 		ListIF<Integer> ids = new List<Integer>();
 		QueryIF query = new Query(title, author, genre, album, min_year, max_year,
 				min_duration, max_duration);
@@ -77,7 +84,9 @@ public class Player implements PlayerIF {
 
 	@Override
 	public void removeTuneFromPlayList(String playListID, int tuneID) {
-		playListManager.getPlayList(playListID).removeTune(tuneID);
+		PlayList p = (PlayList) playListManager.getPlayList(playListID);
+		p.removeTune(tuneID);
+
 	}
 
 	@Override
@@ -115,7 +124,7 @@ public class Player implements PlayerIF {
 
 	@Override
 	public void play() {
-		if(!playBackQueue.isEmpty()) {	
+		if (!playBackQueue.isEmpty()) {
 			recentlyPlayed.addTune(playBackQueue.getFirstTune());
 			playBackQueue.extractFirstTune();
 		}

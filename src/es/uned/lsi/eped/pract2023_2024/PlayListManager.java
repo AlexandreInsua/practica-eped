@@ -57,8 +57,10 @@ public class PlayListManager implements PlayListManagerIF {
 		IteratorIF<PlayListId> it = this.playListids.iterator();
 		while(it.hasNext()) {
 		 PlayListId playlist= it.getNext();
-		 if (playlist.getId() == playListID) {
+		 if (playlist.getId().equals(playListID)) {
 			 this.playListids.remove(index);
+		 }else {
+			 index ++;
 		 }
 		}
 
