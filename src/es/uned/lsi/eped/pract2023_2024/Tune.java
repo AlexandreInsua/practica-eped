@@ -34,7 +34,7 @@ public class Tune implements TuneIF {
 	}
 
 	private boolean matchAuthor(QueryIF q) {
-		return q.getAuthor().isEmpty()|| q.getAuthor().equalsIgnoreCase(author);
+		return q.getAuthor().isEmpty() || q.getAuthor().equalsIgnoreCase(author);
 	}
 
 	private boolean matchGenre(QueryIF q) {
@@ -46,21 +46,20 @@ public class Tune implements TuneIF {
 	}
 
 	private boolean matchYear(QueryIF q) {
+
 		int year_min = q.getMin_year();
 		int year_max = q.getMax_year();
-		if (year_min == -1 ) year_min = Integer.MIN_VALUE;
-		if (year_max == -1 ) year_max = Integer.MAX_VALUE;
-		
-		return (year >= year_min && year <= year_max);
+
+		return (year_min == -1 ? true : year >= year_min)
+				&& (year_max == -1 ? true : year <= year_max);
 	}
 
 	private boolean matchDuration(QueryIF q) {
 		int min_duration = q.getMin_duration();
 		int max_duration = q.getMax_duration();
-		if (min_duration == -1 ) min_duration = Integer.MIN_VALUE;
-		if (max_duration == -1 ) max_duration = Integer.MAX_VALUE;
-		
-		return (duration >= min_duration && duration <= max_duration); 
+
+		return (min_duration == -1 ? true : duration >= min_duration)
+				&& (max_duration == -1 ? true : duration <= max_duration);
 	}
 
 }
